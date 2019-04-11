@@ -1,0 +1,7 @@
+{% extends 'blogApp/base.html' %}
+{% load crispy_forms_tags %}{% block title %}
+    Blog|Profile
+{% endblock %}
+{% block content %}
+    <h2>{{user.username}}</h2>
+{% endblock %}
