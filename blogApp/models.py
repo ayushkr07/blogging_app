@@ -10,3 +10,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post=models.ForeignKey('blogApp.Post', on_delete=models.CASCADE,related_name='comments')
+    author=models.CharField(max_length=200)
+    created_date=models.DateTimeField(default=timezone.now)
+    text=models.TextField()
+
+    def __str__(self):
+        return self.text
