@@ -1,15 +1,45 @@
 {% extends 'blogApp/base.html' %}
 {% block title %}
-    Blog|Home
+    post-detail
 {% endblock %}
 {% block content %}
-    <p>
-        {{post.published_date}}
-    </p>
-    <h1>
-        {{post.title}}
-    </h1>
-    <p>
-        {{post.text}}
-    </p>
+
+<div class="row">
+    <div class="col-md-1.5">
+        <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="">
+    </div>
+
+    <div class="col-md-5.5">
+        <a href="#">{{ post.author }}</a><br>
+        <small class="text-muted">{{ post.published_date}}</small>
+    </div>
+    <div class="col-md-8">
+        {% if post.author == user %}
+        <a href="{% url 'post_edit' pk=post.pk %}"><button class="btn btn-success btn-lg mr-0" type="submit" style="float:right;">Update</button></a>
+        <a href="{% url 'post_remove' pk=post.pk %}"><button class="btn btn-danger btn-lg mr-2" type="submit" style="float:right;">Delete</button></a>
+        {% endif %}
+
+    </div>
+</div>
+<div class="media-body">
+    <h2>{{ post.title }}</h2>
+    <p class="article-content">{{ post.text }}</p>
+</div>
+<hr>
+<a href="{% url 'add_comment' pk=post.pk %}"><button class="btn btn-primary btn-lg mb-2" type="submit">Add Comment</button></a>
+{% for comment in post.comments.all %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{comment.author.profile.image.url}}" alt="">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ comment.author }}</a>
+      <small class="text-muted">{{ comment.created_date}}</small>
+    </div>
+    <p class="article-content">{{comment.text }}</p>
+  </div>
+</article>
+
+{% endfor %}
+
+
 {% endblock %}
