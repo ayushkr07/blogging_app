@@ -10,3 +10,4 @@
 5. Get into blogging_app folder: *cd blogging_app*
 6. Install all the dependencies: *pip install -r requirements.txt*
 7. Run the project: *python manage.py runserver*
+8. Ignore this point :D
